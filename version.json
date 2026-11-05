@@ -1,6 +1,11 @@
 {
-  "versionCode": 25,
-  "versionName": "0.25-beta",
+  "versionCode": 26,
+  "versionName": "0.26-beta",
   "url": "https://github.com/kavsinekaveri/optra-diag-updates/releases/latest",
-  "notes": "النسخة الأولى"
+  "apkUrl": "https://github.com/kavsinekaveri/optra-diag-updates/releases/latest/download/OptraDiagTrial.apk",
+  "sha256": "",
+  "notes": "- New side menu and design\n- WhatsApp and Instagram contact buttons\n- In-app update download\n- Terms and copyright page",
+  "notes_ar": "- قائمة جانبية وتصميم جديد\n- أزرار التواصل واتساب وانستغرام\n- تحميل التحديث من داخل التطبيق\n- صفحة الشروط وحقوق الملكية",
+  "notes_ru": "- Новое боковое меню и дизайн\n- Кнопки связи WhatsApp и Instagram\n- Загрузка обновления внутри приложения\n- Страница условий и авторских прав",
+  "notes_uz": "- Yangi yon menyu va dizayn\n- WhatsApp va Instagram aloqa tugmalari\n- Yangilanishni ilova ichida yuklab olish\n- Shartlar va mualliflik huquqi sahifasi"
 }
