@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex,nofollow">
+<title>Optra Diag</title>
+<style>
+:root{--bg:#0b0d10;--card:#171a20;--text:#eceef2;--sub:#9aa1ad;--accent:#ef5350}
+@media (prefers-color-scheme: light){:root{--bg:#f4f5f7;--card:#fff;--text:#14181e;--sub:#5f6773}}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;padding:20px}
+main{width:100%;max-width:420px;text-align:center}
+h1{font-size:28px;margin:0 0 6px}
+h1 span{color:var(--accent)}
+p{color:var(--sub);line-height:1.7;margin:8px 0}
+.btn{display:block;width:100%;border:0;border-radius:16px;padding:16px;margin-top:18px;font-size:18px;font-weight:700;color:#fff;background:var(--accent);cursor:pointer}
+.card{background:var(--card);border-radius:14px;padding:14px;margin-top:22px;text-align:start}
+.card b{display:block;margin-bottom:6px;font-size:14px}
+code{display:block;direction:ltr;text-align:left;font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:var(--text)}
+.small{font-size:13px}
+.copy{margin-top:10px;background:transparent;border:1.5px solid var(--sub);color:var(--text);padding:10px;font-size:15px;font-weight:600;border-radius:12px;width:100%;cursor:pointer}
+.hide{display:none}
+</style>
+</head>
+<body>
+<main>
+  <h1>Optra <span>Diag</span></h1>
+  <p id="msg"></p>
+  <button class="btn" id="open"></button>
+  <p class="small" id="hint"></p>
+  <div class="card hide" id="box"><b id="boxt"></b><code id="code"></code><button class="copy" id="copy"></button></div>
+  <p class="small" id="bad" style="color:var(--accent)"></p>
+</main>
+<script>
+/* Static page. The activation code stays in the part of the address after "#", which the browser never sends to any
+   server, and this page makes no network requests at all. */
+(function () {
+  var T = {
+    ar: {dir: 'rtl', msg: 'اضغط الزر لفتح التطبيق وتفعيل الكود تلقائياً.', open: 'فتح Optra Diag وتفعيل الكود', hint: 'لازم التطبيق يكون مثبّت على جوالك.',
+         boxt: 'إذا ما انفتح التطبيق، انسخ الكود والصقه في خانة كود التفعيل:', copy: 'نسخ الكود', copied: 'اتنسخ ✓', bad: 'الرابط ناقص: ما فيه كود. اطلب الرابط من جديد.'},
+    en: {dir: 'ltr', msg: 'Tap the button to open the app and activate the code automatically.', open: 'Open Optra Diag and activate', hint: 'The app must be installed on this phone.',
+         boxt: 'If the app does not open, copy the code and paste it into the activation box:', copy: 'Copy code', copied: 'Copied ✓', bad: 'This link has no code. Ask for a new link.'},
+    ru: {dir: 'ltr', msg: 'Нажмите кнопку, чтобы открыть приложение и активировать код автоматически.', open: 'Открыть Optra Diag и активировать', hint: 'Приложение должно быть установлено на этом телефоне.',
+         boxt: 'Если приложение не открылось, скопируйте код и вставьте его в поле активации:', copy: 'Скопировать код', copied: 'Скопировано ✓', bad: 'В ссылке нет кода. Запросите новую ссылку.'},
+    uz: {dir: 'ltr', msg: 'Ilovani ochish va kodni avtomatik faollashtirish uchun tugmani bosing.', open: 'Optra Diag ni ochish va faollashtirish', hint: 'Ilova shu telefonga o‘rnatilgan bo‘lishi kerak.',
+         boxt: 'Ilova ochilmasa, kodni nusxalab, faollashtirish maydoniga qo‘ying:', copy: 'Kodni nusxalash', copied: 'Nusxalandi ✓', bad: 'Havolada kod yo‘q. Yangi havola so‘rang.'}
+  };
+  var lang = (navigator.language || 'en').slice(0, 2).toLowerCase();
+  var q = location.search.match(/[?&]l=(ar|en|ru|uz)/);
+  if (q) lang = q[1];
+  var t = T[lang] || T.en;
+  document.documentElement.lang = T[lang] ? lang : 'en';
+  document.documentElement.dir = t.dir;
+  var $ = function (id) { return document.getElementById(id); };
+  $('msg').textContent = t.msg; $('open').textContent = t.open; $('hint').textContent = t.hint;
+  $('boxt').textContent = t.boxt; $('copy').textContent = t.copy;
+
+  var code = '';
+  try { code = decodeURIComponent((location.hash || '').slice(1)); } catch (e) { code = (location.hash || '').slice(1); }
+  code = code.replace(/^c=/i, '').toUpperCase().replace(/[^A-Z2-7]/g, '');
+  if (code.length < 100) { $('bad').textContent = t.bad; $('open').classList.add('hide'); $('hint').classList.add('hide'); return; }
+
+  var android = /android/i.test(navigator.userAgent);
+  var link = android ? 'intent://activate?c=' + code + '#Intent;scheme=optradiag;end' : 'optradiag://activate?c=' + code;
+  function openApp() { location.href = link; }
+  $('open').addEventListener('click', openApp);
+  $('code').textContent = code.replace(/(.{5})/g, '$1-').replace(/-$/, '');
+  $('box').classList.remove('hide');
+  $('copy').addEventListener('click', function () {
+    var done = function () { $('copy').textContent = t.copied; };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText($('code').textContent).then(done, function () { select(); });
+    else select();
+    function select() { var r = document.createRange(); r.selectNodeContents($('code')); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  });
+  setTimeout(openApp, 500);      // try once by itself; the button is there if the phone asks for a tap
+})();
+</script>
+</body>
+</html>
