@@ -4,8 +4,8 @@
   "url": "https://github.com/kavsinekaveri/optra-diag-updates/releases/latest",
   "apkUrl": "https://github.com/kavsinekaveri/optra-diag-updates/releases/latest/download/OptraDiagTrial.apk",
   "sha256": "",
-  "notes": "- New side menu and design\n- WhatsApp and Instagram contact buttons\n- In-app update download\n- Terms and copyright page",
-  "notes_ar": "- قائمة جانبية وتصميم جديد\n- أزرار التواصل واتساب وانستغرام\n- تحميل التحديث من داخل التطبيق\n- صفحة الشروط وحقوق الملكية",
-  "notes_ru": "- Новое боковое меню и дизайн\n- Кнопки связи WhatsApp и Instagram\n- Загрузка обновления внутри приложения\n- Страница условий и авторских прав",
-  "notes_uz": "- Yangi yon menyu va dizayn\n- WhatsApp va Instagram aloqa tugmalari\n- Yangilanishni ilova ichida yuklab olish\n- Shartlar va mualliflik huquqi sahifasi"
+  "notes": "- Fault codes shown in cards, plus new code descriptions\n- Customer name inside the activation code\n- Customer complaint box and saved reports list\n- PDF report with a customer-friendly first page\n- ECU identification in the full check-up\n- Automatic capture of the 30 seconds before a stall",
+  "notes_ar": "- الأكواد تظهر في مربعات، مع أوصاف أكواد جديدة\n- اسم العميل داخل كود التفعيل\n- شكوى العميل وقائمة تقاريري المحفوظة\n- تقرير PDF بصفحة أولى بسيطة للعميل\n- قراءة تعريف الكمبيوتر في الفحص الكامل\n- التقاط تلقائي لآخر 30 ثانية قبل التفتفة",
+  "notes_ru": "- Коды ошибок в карточках, новые описания кодов\n- Имя клиента внутри кода активации\n- Жалоба клиента и список сохранённых отчётов\n- PDF-отчёт с простой первой страницей для клиента\n- Идентификация блока в полной проверке\n- Автозапись 30 секунд перед остановкой двигателя",
+  "notes_uz": "- Xato kodlari kartochkalarda, yangi kod tavsiflari\n- Mijoz ismi faollashtirish kodi ichida\n- Mijoz shikoyati va saqlangan hisobotlar roʻyxati\n- Mijoz uchun oddiy birinchi sahifali PDF hisobot\n- Toʻliq tekshiruvda blok identifikatsiyasi\n- Dvigatel oʻchishidan oldingi 30 soniyani avtomatik yozish"
 }
