@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الأسئلة الشائعة - Optra Diag</title>
+<link rel="icon" href="img/app_icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0b0d;--card:#17181c;--line:#2a2c32;--text:#f2f2f4;--mute:#a4a7b0;--red:#ff3b3b}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--text);font:16px/1.8 "Cairo",system-ui,Tahoma,Arial,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 60px}
+h1{font-size:26px;margin-bottom:4px}
+.sub{color:var(--mute);margin-bottom:20px}
+h2{font-size:18px;color:var(--red);margin:26px 0 10px}
+#q{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit}
+details{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:8px;padding:0 14px}
+summary{cursor:pointer;padding:12px 0;font-weight:700;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";float:left;color:var(--red)}
+details[open] summary::after{content:"–"}
+details p{color:var(--mute);padding:0 0 14px}
+.none{color:var(--mute);display:none;margin-top:14px}
+a{color:var(--red)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>الأسئلة الشائعة</h1>
+<p class="sub">The Doctor Optra Garage · Optra Diag</p>
+<input id="q" type="search" placeholder="ابحث في الأسئلة...">
+<div id="list"></div>
+<p class="none" id="none">ما لقينا سؤال بهذا الكلام. تواصل معنا واتساب 0578087254</p>
+</div>
+<script>
+fetch('faq.json?'+Date.now()).then(r=>r.json()).then(d=>{
+  const list=document.getElementById('list');
+  d.sections.forEach(s=>{
+    const sec=document.createElement('section');
+    const h=document.createElement('h2');h.textContent=s.title;sec.appendChild(h);
+    s.items.forEach(i=>{
+      const det=document.createElement('details');
+      const sm=document.createElement('summary');sm.textContent=i.q;
+      const p=document.createElement('p');p.textContent=i.a;
+      det.append(sm,p);sec.appendChild(det);
+    });
+    list.appendChild(sec);
+  });
+}).catch(()=>{document.getElementById('list').textContent='تعذر تحميل الأسئلة.'});
+document.getElementById('q').addEventListener('input',e=>{
+  const t=e.target.value.trim().toLowerCase();let any=false;
+  document.querySelectorAll('details').forEach(d=>{
+    const m=!t||d.textContent.toLowerCase().includes(t);
+    d.style.display=m?'':'none';if(m)any=true;
+  });
+  document.querySelectorAll('section').forEach(s=>{
+    s.style.display=[...s.querySelectorAll('details')].some(d=>d.style.display!=='none')?'':'none';
+  });
+  document.getElementById('none').style.display=any?'none':'block';
+});
+</script>
+</body>
+</html>
