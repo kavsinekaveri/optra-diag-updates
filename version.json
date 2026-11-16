@@ -1,11 +1,11 @@
 {
-  "versionCode": 30,
-  "versionName": "0.30-beta",
+  "versionCode": 31,
+  "versionName": "0.31-beta",
   "url": "https://github.com/kavsinekaveri/optra-diag-updates/releases/latest",
   "apkUrl": "https://github.com/kavsinekaveri/optra-diag-updates/releases/latest/download/OptraDiagTrial.apk",
   "sha256": "",
-  "notes": "- Fault codes shown in cards, plus new code descriptions\n- Customer name inside the activation code\n- Customer complaint box and saved reports list\n- PDF report with a customer-friendly first page\n- ECU identification in the full check-up\n- Automatic capture of the 30 seconds before a stall",
-  "notes_ar": "- الأكواد تظهر في مربعات، مع أوصاف أكواد جديدة\n- اسم العميل داخل كود التفعيل\n- شكوى العميل وقائمة تقاريري المحفوظة\n- تقرير PDF بصفحة أولى بسيطة للعميل\n- قراءة تعريف الكمبيوتر في الفحص الكامل\n- التقاط تلقائي لآخر 30 ثانية قبل التفتفة",
-  "notes_ru": "- Коды ошибок в карточках, новые описания кодов\n- Имя клиента внутри кода активации\n- Жалоба клиента и список сохранённых отчётов\n- PDF-отчёт с простой первой страницей для клиента\n- Идентификация блока в полной проверке\n- Автозапись 30 секунд перед остановкой двигателя",
-  "notes_uz": "- Xato kodlari kartochkalarda, yangi kod tavsiflari\n- Mijoz ismi faollashtirish kodi ichida\n- Mijoz shikoyati va saqlangan hisobotlar roʻyxati\n- Mijoz uchun oddiy birinchi sahifali PDF hisobot\n- Toʻliq tekshiruvda blok identifikatsiyasi\n- Dvigatel oʻchishidan oldingi 30 soniyani avtomatik yozish"
+  "notes": "- New home page with connection status and quick cards\n- Car information (model, year, engine, mileage)\n- Alerts: temperature, battery, RPM drop, lost link; reminders every few days\n- New phone-size PDF report with the Cairo font and 12-hour time\n- Questions page (opens the web site)\n- Warning when some fault codes do not arrive",
+  "notes_ar": "- صفحة رئيسية جديدة فيها حالة الاتصال وكروت سريعة\n- معلومات السيارة (الموديل والسنة والمحرك والعداد)\n- تنبيهات: الحرارة، البطارية، هبوط الـRPM، انقطاع الاتصال، وتذكير كل كم يوم\n- تقرير PDF جديد بمقاس الجوال بخط Cairo ووقت 12 ساعة\n- صفحة الأسئلة الشائعة (تفتح الموقع)\n- تحذير إذا بعض الأكواد ما وصلت كاملة",
+  "notes_ru": "- Новая главная страница со статусом подключения\n- Данные автомобиля (модель, год, двигатель, пробег)\n- Оповещения и напоминания\n- Новый PDF-отчёт для телефона, шрифт Cairo, 12-часовое время\n- Страница вопросов и ответов\n- Предупреждение о неполных кодах",
+  "notes_uz": "- Ulanish holati bilan yangi bosh sahifa\n- Avtomobil ma'lumoti\n- Ogohlantirish va eslatmalar\n- Telefon o'lchamidagi yangi PDF, Cairo shrifti, 12 soatlik vaqt\n- Savol-javoblar sahifasi\n- To'liq kelmagan kodlar haqida ogohlantirish"
 }
