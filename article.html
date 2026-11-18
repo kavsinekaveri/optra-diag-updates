@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Optra Diag</title>
+<meta name="theme-color" content="#07070a">
+<link rel="icon" href="img/app_icon.png">
+<link rel="stylesheet" href="site.css"><link rel="stylesheet" href="blog.css">
+</head>
+<body>
+<header class="nav" id="nav"></header>
+<section class="ah"><div class="wrap"><div class="art" id="head"></div></div></section>
+<main class="wrap"><div class="art"><div class="body" id="body"></div>
+  <div class="cta-band rv" id="cta"></div>
+  <div class="navart" id="navart"></div>
+</div>
+<div class="rel"><div class="art" style="max-width:none"><h2 id="relh"></h2></div><div class="ag" id="rel"></div></div>
+</main>
+<footer id="foot"></footer>
+<script src="site.js"></script>
+<script>
+var UI={
+ar:{home:"الأسئلة والمقالات",read:"دقيقة قراءة",rel:"مقالات ذات صلة",ch:"افحص سيارتك بنفسك",cp:"حمّل Optra Diag واقرأ الأكواد وشوف القراءات الحية، وأرسل التقرير للميكانيكي.",cb:"تحميل التطبيق",tip:"نصيحة",warn:"تنبيه",back:"السابق",next:"التالي",more:"اقرأ المقال",nf:"المقال غير موجود",all:"كل المقالات"},
+en:{home:"FAQ & Articles",read:"min read",rel:"Related articles",ch:"Check your car yourself",cp:"Download Optra Diag, read the codes, watch live data and send the report to your mechanic.",cb:"Download the app",tip:"Tip",warn:"Warning",back:"Previous",next:"Next",more:"Read article",nf:"Article not found",all:"All articles"},
+ru:{home:"Вопросы и статьи",read:"мин чтения",rel:"Похожие статьи",ch:"Проверьте машину сами",cp:"Скачайте Optra Diag, читайте коды, смотрите живые данные и отправляйте отчёт механику.",cb:"Скачать приложение",tip:"Совет",warn:"Внимание",back:"Назад",next:"Далее",more:"Читать статью",nf:"Статья не найдена",all:"Все статьи"},
+uz:{home:"Savollar va maqolalar",read:"daqiqa oʻqish",rel:"Oʻxshash maqolalar",ch:"Mashinangizni oʻzingiz tekshiring",cp:"Optra Diag ni yuklab oling, kodlarni oʻqing, jonli maʼlumotni koʻring va hisobotni mexanikka yuboring.",cb:"Ilovani yuklab olish",tip:"Maslahat",warn:"Diqqat",back:"Oldingi",next:"Keyingi",more:"Maqolani oʻqish",nf:"Maqola topilmadi",all:"Barcha maqolalar"}};
+var D=null, slug=new URLSearchParams(location.search).get("a");
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function draw(){
+  if(!D)return; var l=SITE.lang,u=UI[l],A=D.articles;
+  var i=A.findIndex(function(x){return x.slug===slug}); 
+  if(i<0){document.getElementById("head").innerHTML='<h1>'+u.nf+'</h1><p class="lead"><a href="faq.html" style="color:var(--red)">'+u.all+'</a></p>';document.getElementById("body").innerHTML="";document.getElementById("cta").style.display="none";return}
+  var a=A[i]; document.title=a.t[l]+" - Optra Diag";
+  document.getElementById("head").innerHTML='<div class="crumb"><a href="faq.html">'+u.home+'</a><span>›</span><span>'+esc(a.code)+'</span></div><div class="meta"><span class="pill">'+esc(a.code)+'</span><span>'+D.cats[a.cat][l]+'</span><span>'+a.read+' '+u.read+'</span></div><h1>'+esc(a.t[l])+'</h1><p class="lead">'+esc(a.lead[l])+'</p><div class="cover"><img src="img/a/cover_'+a.cover+'.svg" alt=""></div>';
+  var h="";
+  a.body[l].forEach(function(b){
+    if(b[0]==="h")h+='<h2>'+esc(b[1])+'</h2>';
+    else if(b[0]==="p")h+='<p>'+esc(b[1])+'</p>';
+    else if(b[0]==="ul")h+='<ul>'+b[1].map(function(x){return'<li>'+esc(x)+'</li>'}).join("")+'</ul>';
+    else if(b[0]==="fig")h+='<figure class="rv"><img src="img/a/'+b[1]+'.svg" alt="" loading="lazy"><figcaption>'+esc(b[2])+'</figcaption></figure>';
+    else if(b[0]==="tip")h+='<div class="callout tip rv"><div class="ci">i</div><div><b>'+u.tip+':</b> '+esc(b[1])+'</div></div>';
+    else if(b[0]==="warn")h+='<div class="callout warn rv"><div class="ci">!</div><div><b>'+u.warn+':</b> '+esc(b[1])+'</div></div>';
+  });
+  document.getElementById("body").innerHTML=h;
+  document.getElementById("cta").style.display="";
+  document.getElementById("cta").innerHTML='<h2>'+u.ch+'</h2><p>'+u.cp+'</p><a class="btn" href="index.html#install">'+u.cb+'</a>';
+  var prev=A[(i+A.length-1)%A.length],next=A[(i+1)%A.length];
+  document.getElementById("navart").innerHTML='<a class="btn ghost" href="article.html?a='+prev.slug+'">‹ '+u.back+'</a><a class="btn ghost" href="article.html?a='+next.slug+'">'+u.next+' ›</a>';
+  document.getElementById("relh").textContent=u.rel;
+  var rel=A.filter(function(x,j){return j!==i&&x.cat===a.cat}).concat(A.filter(function(x,j){return j!==i&&x.cat!==a.cat})).slice(0,3);
+  document.getElementById("rel").innerHTML=rel.map(function(x){return '<a class="ac rv" href="article.html?a='+x.slug+'"><div class="im"><img src="img/a/cover_'+x.cover+'.svg" alt="" loading="lazy"></div><div class="tx"><div class="meta"><span class="pill">'+esc(x.code)+'</span><span>'+x.read+' '+u.read+'</span></div><h3>'+esc(x.t[l])+'</h3><span class="more">'+u.more+' →</span></div></a>'}).join("");
+  SITE.reveal();
+}
+SITE.onLang(draw);SITE.start();
+fetch("articles.json").then(function(r){return r.json()}).then(function(j){D=j;draw()});
+</script>
+</body>
+</html>

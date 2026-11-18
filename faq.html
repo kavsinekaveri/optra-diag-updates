@@ -3,62 +3,64 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>الأسئلة الشائعة - Optra Diag</title>
+<title>FAQ - Optra Diag</title>
+<meta name="theme-color" content="#07070a">
 <link rel="icon" href="img/app_icon.png">
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#0b0b0d;--card:#17181c;--line:#2a2c32;--text:#f2f2f4;--mute:#a4a7b0;--red:#ff3b3b}
-*{box-sizing:border-box;margin:0}
-body{background:var(--bg);color:var(--text);font:16px/1.8 "Cairo",system-ui,Tahoma,Arial,sans-serif}
-.wrap{max-width:760px;margin:0 auto;padding:24px 16px 60px}
-h1{font-size:26px;margin-bottom:4px}
-.sub{color:var(--mute);margin-bottom:20px}
-h2{font-size:18px;color:var(--red);margin:26px 0 10px}
-#q{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit}
-details{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:8px;padding:0 14px}
-summary{cursor:pointer;padding:12px 0;font-weight:700;list-style:none}
-summary::-webkit-details-marker{display:none}
-summary::after{content:"+";float:left;color:var(--red)}
-details[open] summary::after{content:"–"}
-details p{color:var(--mute);padding:0 0 14px}
-.none{color:var(--mute);display:none;margin-top:14px}
-a{color:var(--red)}
-</style>
+<link rel="stylesheet" href="site.css"><link rel="stylesheet" href="blog.css">
 </head>
 <body>
-<div class="wrap">
-<h1>الأسئلة الشائعة</h1>
-<p class="sub">The Doctor Optra Garage · Optra Diag</p>
-<input id="q" type="search" placeholder="ابحث في الأسئلة...">
-<div id="list"></div>
-<p class="none" id="none">ما لقينا سؤال بهذا الكلام. تواصل معنا واتساب 0578087254</p>
-</div>
+<header class="nav" id="nav"></header>
+<section class="bh"><div class="wrap">
+  <span class="kick" id="kick"></span>
+  <h1 id="ttl"></h1>
+  <p id="sub"></p>
+  <div class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="q" type="search" autocomplete="off"></div>
+  <div class="chips" id="chips"></div>
+</div></section>
+<main class="wrap">
+  <div class="ag" id="ag"></div>
+  <div class="faqs" id="faqs"></div>
+  <p class="empty" id="empty"></p>
+  <div class="cta-band rv"><h2 id="cta_h"></h2><p id="cta_p"></p><a class="btn" id="cta_b" href="index.html#install"></a></div>
+</main>
+<footer id="foot"></footer>
+<script src="site.js"></script>
 <script>
-fetch('faq.json?'+Date.now()).then(r=>r.json()).then(d=>{
-  const list=document.getElementById('list');
-  d.sections.forEach(s=>{
-    const sec=document.createElement('section');
-    const h=document.createElement('h2');h.textContent=s.title;sec.appendChild(h);
-    s.items.forEach(i=>{
-      const det=document.createElement('details');
-      const sm=document.createElement('summary');sm.textContent=i.q;
-      const p=document.createElement('p');p.textContent=i.a;
-      det.append(sm,p);sec.appendChild(det);
-    });
-    list.appendChild(sec);
-  });
-}).catch(()=>{document.getElementById('list').textContent='تعذر تحميل الأسئلة.'});
-document.getElementById('q').addEventListener('input',e=>{
-  const t=e.target.value.trim().toLowerCase();let any=false;
-  document.querySelectorAll('details').forEach(d=>{
-    const m=!t||d.textContent.toLowerCase().includes(t);
-    d.style.display=m?'':'none';if(m)any=true;
-  });
-  document.querySelectorAll('section').forEach(s=>{
-    s.style.display=[...s.querySelectorAll('details')].some(d=>d.style.display!=='none')?'':'none';
-  });
-  document.getElementById('none').style.display=any?'none':'block';
-});
+var UI={
+ar:{k:"مدونة الورشة",t:"الأسئلة والمقالات",s:"شرح مبسّط لأعطال سيارتك وأكواد الفحص، مع صور ورسوم. اسأل، اقرأ، وافحص بثقة.",ph:"ابحث عن كود أو عرض أو سؤال...",all:"الكل",faq:"أسئلة شائعة",read:"دقيقة قراءة",more:"اقرأ المقال",none:"ما لقينا نتيجة. تواصل معنا واتساب 0578087254",ch:"جرّب التطبيق بنفسك",cp:"اقرأ سيارتك، افهم الأعطال، وأرسل التقرير لميكانيكيك.",cb:"تحميل التطبيق",faqh:"الأسئلة الشائعة"},
+en:{k:"Garage blog",t:"FAQ & Articles",s:"Simple explanations of your car's faults and fault codes, with pictures and diagrams. Ask, read and check with confidence.",ph:"Search a code, symptom or question...",all:"All",faq:"FAQ",read:"min read",more:"Read article",none:"Nothing found. Contact us on WhatsApp 0578087254",ch:"Try the app yourself",cp:"Read your car, understand the faults and send the report to your mechanic.",cb:"Download the app",faqh:"Frequently asked questions"},
+ru:{k:"Блог мастерской",t:"Вопросы и статьи",s:"Простые объяснения неисправностей и кодов с картинками и схемами. Спрашивайте, читайте и проверяйте с уверенностью.",ph:"Поиск кода, симптома или вопроса...",all:"Все",faq:"Вопросы",read:"мин чтения",more:"Читать статью",none:"Ничего не найдено. Напишите нам в WhatsApp 0578087254",ch:"Попробуйте приложение",cp:"Прочитайте машину, поймите неисправности и отправьте отчёт механику.",cb:"Скачать приложение",faqh:"Частые вопросы"},
+uz:{k:"Ustaxona blogi",t:"Savollar va maqolalar",s:"Mashina nosozliklari va xato kodlarining oddiy tushuntirishi, rasm va chizmalar bilan. Soʻrang, oʻqing va ishonch bilan tekshiring.",ph:"Kod, belgi yoki savol qidiring...",all:"Hammasi",faq:"Savollar",read:"daqiqa oʻqish",more:"Maqolani oʻqish",none:"Hech narsa topilmadi. WhatsApp 0578087254 orqali yozing",ch:"Ilovani oʻzingiz sinab koʻring",cp:"Mashinani oʻqing, nosozliklarni tushuning va hisobotni mexanikka yuboring.",cb:"Ilovani yuklab olish",faqh:"Tez-tez beriladigan savollar"}};
+var D=null, cat="all", term="";
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function norm(s){return String(s).toLowerCase()}
+function draw(){
+  var l=SITE.lang,u=UI[l]; if(!D)return;
+  var a=D.a.articles;
+  document.title=u.t+" - Optra Diag";
+  document.getElementById("kick").textContent=u.k;document.getElementById("ttl").textContent=u.t;document.getElementById("sub").textContent=u.s;
+  document.getElementById("q").placeholder=u.ph;
+  document.getElementById("cta_h").textContent=u.ch;document.getElementById("cta_p").textContent=u.cp;document.getElementById("cta_b").textContent=u.cb;
+  var cats=[["all",u.all]],seen={};
+  a.forEach(function(x){if(!seen[x.cat]){seen[x.cat]=1;cats.push([x.cat,D.a.cats[x.cat][l]])}});
+  cats.push(["faq",u.faq]);
+  document.getElementById("chips").innerHTML=cats.map(function(c){return '<button data-c="'+c[0]+'" class="'+(c[0]===cat?"on":"")+'">'+esc(c[1])+'</button>'}).join("");
+  document.querySelectorAll("#chips button").forEach(function(b){b.onclick=function(){cat=b.getAttribute("data-c");draw()}});
+  var t=norm(term),shown=0;
+  var arts=(cat==="faq")?[]:a.filter(function(x){return(cat==="all"||x.cat===cat)&&(!t||norm(x.t[l]+" "+x.lead[l]+" "+x.code).indexOf(t)>-1)});
+  document.getElementById("ag").innerHTML=arts.map(function(x){return '<a class="ac rv" href="article.html?a='+x.slug+'"><div class="im"><img src="img/a/cover_'+x.cover+'.svg" alt="" loading="lazy"></div><div class="tx"><div class="meta"><span class="pill">'+esc(x.code)+'</span><span>'+D.a.cats[x.cat][l]+'</span><span>'+x.read+' '+u.read+'</span></div><h3>'+esc(x.t[l])+'</h3><p>'+esc(x.lead[l])+'</p><span class="more">'+u.more+' →</span></div></a>'}).join("");
+  shown+=arts.length;
+  var fq=(cat==="all"||cat==="faq")?D.f.items.filter(function(x){return!t||norm(x.q[l]+" "+x.a[l]).indexOf(t)>-1}):[];
+  var h="",last="";
+  fq.forEach(function(x){if(x.cat!==last){last=x.cat;h+='<div class="fcat">'+esc(D.f.cats[x.cat][l])+'</div>'}h+='<details class="fq"><summary>'+esc(x.q[l])+'</summary><div class="a">'+esc(x.a[l])+'</div></details>'});
+  document.getElementById("faqs").innerHTML=fq.length?'<h2 class="sh">'+u.faqh+'</h2>'+h:"";
+  shown+=fq.length;
+  var e=document.getElementById("empty");e.textContent=u.none;e.style.display=shown?"none":"block";
+  SITE.reveal();
+}
+document.getElementById("q").addEventListener("input",function(e){term=e.target.value.trim();draw()});
+SITE.onLang(draw);SITE.start();
+Promise.all([fetch("articles.json").then(function(r){return r.json()}),fetch("faq.json").then(function(r){return r.json()})]).then(function(r){D={a:r[0],f:r[1]};draw()}).catch(function(){document.getElementById("empty").style.display="block"});
 </script>
 </body>
 </html>
